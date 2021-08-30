@@ -1,6 +1,6 @@
 // import logo from './logo.svg';
 import './App.css';
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import Navbar from './components/Navbar';
 import News from './components/News';
 import {
@@ -12,41 +12,40 @@ import {
 import LoadingBar from 'react-top-loading-bar'
 
 
-export default class App extends Component {
-  pageSize = 15;
-  country = "in";
-  state = {
-    progress: 0
-  }
-  setProgress = (progress) => {
-    this.setState({ progress: progress })
-  }
-  render() {
-    return (
-      <div>
-        <Router>
-          <LoadingBar
-            height={3}
-            color='#f11946'
-            progress={this.state.progress}
-          // onLoaderFinished={() => setProgress(0)}
-          />
-          <Navbar />
+const App = () => {
+  const pageSize = 15;
+  const country = "in";
 
-          <Switch>
-            <Route exact path="/"><News setProgress={this.setProgress} key="general" pageSize={this.pageSize} country={this.country} category="general" /></Route>
-            <Route exact path="/business"><News setProgress={this.setProgress} key="business" pageSize={this.pageSize} country={this.country} category="business" /></Route>
-            <Route exact path="/entertainment"><News setProgress={this.setProgress} key="entertainment" pageSize={5} country={this.country} category="entertainment" /></Route>
-            <Route exact path="/general"><News setProgress={this.setProgress} key="general" pageSize={this.pageSize} country={this.country} category="general" /></Route>
-            <Route exact path="/health"><News setProgress={this.setProgress} key="health" pageSize={this.pageSize} country={this.country} category="health" /></Route>
-            <Route exact path="/science"><News setProgress={this.setProgress} key="science" pageSize={this.pageSize} country={this.country} category="science" /></Route>
-            <Route exact path="/sports"><News setProgress={this.setProgress} key="sports" pageSize={this.pageSize} country={this.country} category="sports" /></Route>
-            <Route exact path="/technology"><News setProgress={this.setProgress} key="technology" pageSize={this.pageSize} country={this.country} category="technology" /></Route>
+  const [progress, setProgress] = useState(0)
 
 
-          </Switch>
-        </Router>
-      </div>
-    )
-  }
+
+  return (
+    <div>
+      <Router>
+        <LoadingBar
+          height={3}
+          color='#f11946'
+          progress={progress}
+        // onLoaderFinished={() => setProgress(0)}
+        />
+        <Navbar />
+
+        <Switch>
+          <Route exact path="/"><News setProgress={setProgress} key="general" pageSize={pageSize} country={country} category="general" /></Route>
+          <Route exact path="/business"><News setProgress={setProgress} key="business" pageSize={pageSize} country={country} category="business" /></Route>
+          <Route exact path="/entertainment"><News setProgress={setProgress} key="entertainment" pageSize={5} country={country} category="entertainment" /></Route>
+          <Route exact path="/general"><News setProgress={setProgress} key="general" pageSize={pageSize} country={country} category="general" /></Route>
+          <Route exact path="/health"><News setProgress={setProgress} key="health" pageSize={pageSize} country={country} category="health" /></Route>
+          <Route exact path="/science"><News setProgress={setProgress} key="science" pageSize={pageSize} country={country} category="science" /></Route>
+          <Route exact path="/sports"><News setProgress={setProgress} key="sports" pageSize={pageSize} country={country} category="sports" /></Route>
+          <Route exact path="/technology"><News setProgress={setProgress} key="technology" pageSize={pageSize} country={country} category="technology" /></Route>
+
+
+        </Switch>
+      </Router>
+    </div>
+  )
 }
+
+export default App;
